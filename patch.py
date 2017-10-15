@@ -75,6 +75,7 @@ scancode_table1_offset = 0x258a
 scancode_table2_offset = 0x23e6
 
 orig_fw_md5 = '67d2c8f71f273e30a0c69aa36e8bf609'
+orig_fw_iso_md5 = 'fadef2c8f1ffc7e2d5e80edb3b54a43a'
 
 def write_scancode_table(table, f, offset):
     '''Write scancode table at specific offset in a file'''
@@ -96,6 +97,7 @@ def original_fw_valid(path):
     with open(path, 'r') as orig:
         m = md5.new()
         m.update(orig.read())
+        print m.hexdigest()
         return m.hexdigest() == orig_fw_md5
 
 def write_jump_to_bsl():
@@ -110,11 +112,11 @@ def write_jump_to_bsl():
 
 if __name__ == '__main__':
     # Remap caps to ctrl
-    scancode_table1[key_id_caps] = scancode_table1[key_id_ctrl]
+    # scancode_table1[key_id_caps] = scancode_table1[key_id_ctrl]
 
     # Switch down backspace to \ and \ to backspace
-    scancode_table1[key_id_backspace], scancode_table1[key_id_backslash] = \
-        scancode_table1[key_id_backslash], scancode_table1[key_id_backspace]
+    # scancode_table1[key_id_backspace], scancode_table1[key_id_backslash] = \
+    # scancode_table1[key_id_backslash], scancode_table1[key_id_backspace]
 
     parser = argparse.ArgumentParser(
         description='Patch utility for Novatouch TKL firmware')
